@@ -12,11 +12,16 @@ workflows:
       - name: Set up local.properties
         script: | 
           echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
+      
+      - name: Generate Gradle Wrapper
+        script: | 
+          cd $CM_BUILD_DIR
+          gradle wrapper
+          chmod +x gradlew
           
       - name: Build Android debug APK
         script: | 
           cd $CM_BUILD_DIR
-          chmod +x gradlew
           ./gradlew assembleDebug --stacktrace
           
     artifacts:
