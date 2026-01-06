@@ -5,8 +5,6 @@ workflows:
     instance_type: mac_mini_m1
     environment:
       java: 17
-      groups:
-        - google_play
       vars:
         PACKAGE_NAME: "com.aquareminder.app"
       
@@ -14,10 +12,6 @@ workflows:
       - name: Set up local.properties
         script: | 
           echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
-          
-      - name: Set up app/local.properties
-        script: |
-          echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/app/local.properties"
           
       - name: Build Android debug APK
         script: | 
@@ -27,7 +21,6 @@ workflows:
           
     artifacts:
       - app/build/outputs/**/*.apk
-      - app/build/outputs/**/mapping.txt
       
     publishing:
       email:
